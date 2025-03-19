@@ -12,8 +12,8 @@ function cheking($name, $age) {
     }}
     
 function chekingParam($name, $age) {
-    echo '<ul>';
         if(!$name && !$age) {
+            echo "<ul>";
             echo '<li>Missing name</li>';
             echo '<li>Missing age</li>';
         } else if (!$name) {
@@ -21,7 +21,7 @@ function chekingParam($name, $age) {
         }else if (!$age) {
             echo '<li>Missing age</li>';
         }
-    echo '</ul>';
+        echo "</ul>";
     }
 ?>
 
@@ -38,7 +38,7 @@ function chekingParam($name, $age) {
 
 <!-- Display parameters here in a h1 tag -->
 <h1><?=cheking($name, $age)?></h1>
-<ul><?=chekingParam($name, $age)?></ul>    
+<p><?=chekingParam($name, $age)?></p>    
 <!-- Display message in list element in case of missing parameters -->
 
 </body>

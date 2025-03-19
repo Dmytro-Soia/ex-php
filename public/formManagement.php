@@ -9,7 +9,27 @@
  * The data submitted should remain displayed in the form after the submission.
  * (Your form should be semantically correct, use a label and name your fields)
  */
+$name = $_POST['name'] ?? '';
+$age = $_POST['age'] ?? '';
 
+function cheking($name, $age) {
+    if ($name && $age) {
+        if (strlen($name) > 6) {
+        echo "<span style='color:red'>$name</span> is $age years old";
+        } else {
+            echo "$name is $age years old";
+        }
+    } else {
+        echo 'Submit the form';
+    }
+}
+function checkAge($age) {
+    if ($age > 18) {
+        for ($i = 1; $i <= $age; $i++) {
+            echo "<li>$i</li>";
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -22,7 +42,15 @@
     <title>Form management</title>
 </head>
 <body>
-
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"> 
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<?=$name?>">
+        <label for="age">Age</label>
+        <input type="number" name="age" id="age" value="<?=$age?>">
+        <button type="submit">Submit</button>
+    </form>
 <!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
+<h1><?=cheking($name, $age)?></h1>
+<ul><?=checkAge($age)?></ul>
 </body>
 </html>
