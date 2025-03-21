@@ -14,19 +14,21 @@ $age = $_POST['age'];
 function cheking($name, $age) {
     if ($name && $age) {
         if (strlen($name) > 6) {
-        echo "<span style='color:red'>$name</span> is $age years old";
+        return "<span style='color:red'>$name</span> is $age years old";
         } else {
-            echo "$name is $age years old";
+        return "$name is $age years old";
         }
     } else {
-        echo 'Submit the form';
+        return 'Submit the form';
     }
 }
 function checkAge($age) {
     if ($age > 18) {
+        $agePerLine = "";
         for ($i = 1; $i <= $age; $i++) {
-            echo "<li>$i</li>";
+            $agePerLine .= "<li>$i</li>";
         }
+        return $agePerLine;
     }
 }
 ?>
@@ -49,7 +51,7 @@ function checkAge($age) {
         <button type="submit">Submit</button>
     </form>
 <!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
-<h1><?= htmlspecialchars(cheking($name, $age))?></h1>
+<h1><?= cheking($name, $age)?></h1>
 <ul><?=checkAge($age)?></ul>
 </body>
 </html>
