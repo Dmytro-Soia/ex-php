@@ -1,5 +1,4 @@
 <?php
-
 /**
  * On this page, you should display a form with two fields, one for the Name and one for the Age.
  * The server should respond to the form submission by displaying the same page with the name and age in a h1 "Toto is 20 years old".
@@ -9,8 +8,8 @@
  * The data submitted should remain displayed in the form after the submission.
  * (Your form should be semantically correct, use a label and name your fields)
  */
-$name = $_POST['name'] ?? '';
-$age = $_POST['age'] ?? '';
+$name = $_POST['name'];
+$age = $_POST['age'];
 
 function cheking($name, $age) {
     if ($name && $age) {
@@ -50,7 +49,7 @@ function checkAge($age) {
         <button type="submit">Submit</button>
     </form>
 <!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
-<h1><?=cheking($name, $age)?></h1>
+<h1><?= htmlspecialchars(cheking($name, $age))?></h1>
 <ul><?=checkAge($age)?></ul>
 </body>
 </html>
