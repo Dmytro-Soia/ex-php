@@ -51,7 +51,7 @@ function checkAge($age) {
         <button type="submit">Submit</button>
     </form>
 <!-- WRITE YOUR HTML AND PHP TEMPLATING HERE -->
-<h1><?= cheking($name, $age)?></h1>
+<h1><?=cheking($name, $age)?></h1>
 <ul><?=checkAge($age)?></ul>
 </body>
 </html>

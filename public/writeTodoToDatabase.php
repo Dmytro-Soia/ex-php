@@ -42,16 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             header("Location: displayAllTodosFromDatabase.php");
             exit();
         } catch (Exception $e) {
-            var_dump($e);
             array_push($errors, "Cannot add to database, connection problem");
         }
-    }
-}
-
-function displayTodo($name, $date)
-{
-    if ($name && $date) {
-        return "$name $date";
     }
 }
 
@@ -89,12 +81,6 @@ function displayTodo($name, $date)
         <input type="date" name="date" id="date" value="<?= $date ?>"><br>
         <button type="submit">Submit</button>
     </form>
-
-    <ul>
-        <li>
-            <?= displayTodo($name, $date) ?>
-        </li>
-    </ul>
 </body>
 
 </html>
