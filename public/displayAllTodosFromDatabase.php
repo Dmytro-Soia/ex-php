@@ -33,20 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 $stmt = $pdo->query("SELECT * FROM todos");
                 $allTodos = $stmt->fetchAll();
                 foreach ($allTodos as $todo) {
-                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input type='submit'></form></li><br>";
+                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input value='Delete ToDo' type='submit'></form></li><br>";
                 }
             } elseif ($sort === "name") {
 
                 $stmtSortByName = $pdo->query("SELECT * FROM todos ORDER BY title");
                 $allTodosByName = $stmtSortByName->fetchAll();
                 foreach ($allTodosByName as $todo) {
-                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input type='submit'></form></li><br>";
+                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input value='Delete ToDo' type='submit'></form></li><br>";
                 }
             } elseif ($sort === "date") {
                 $stmtSortByDate = $pdo->query("SELECT * FROM todos ORDER BY due_date");
                 $allTodosByDate = $stmtSortByDate->fetchAll();
                 foreach ($allTodosByDate as $todo) {
-                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input type='submit'></form></li><br>";
+                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input value='Delete ToDo' type='submit'></form></li><br>";
                 }
             }
         } catch (Exception $e) {
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             <option value="name" <?php if ($_GET['sort'] == "name") echo 'selected="selected" '; ?>>Name</option>
             <option value="date" <?php if ($_GET['sort'] == "date") echo 'selected="selected" '; ?>>Date</option>
         </select>
-        <input type="submit">
+        <input value='Select sort type' type="submit">
     </form>
     <ul>
         <?= $todos ?>
