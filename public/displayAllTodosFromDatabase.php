@@ -26,23 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         try {
             $pdo = new PDO($dns, $user, $pass, $options);
 
-            $todos = "";
             $todosArray = [];
-            if ($sort === "base" || $sort === NULL) {
-
-                $stmt = $pdo->query("SELECT * FROM todos");
-                $todosArray = $stmt->fetchAll();
-            } elseif ($sort === "name") {
-
-                $stmtSortByName = $pdo->query("SELECT * FROM todos ORDER BY title");
-                $todosArray = $stmtSortByName->fetchAll();
+            $query = "SELECT * FROM todos";
+            if ($sort === "name") {
+                $query .= " ORDER BY title";
             } elseif ($sort === "date") {
-                $stmtSortByDate = $pdo->query("SELECT * FROM todos ORDER BY due_date");
-                $todosArray = $stmtSortByDate->fetchAll();
+                $query .= " ORDER BY due_date";
             }
-            foreach ($todosArray as $todo) {
-                $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input type='hidden' name='chosenTodoID' value=" . $todo["id"] . "><input value='Delete ToDo' type='submit'></form></li><br>";
-            }
+
+            $stmtSortByDate = $pdo->query($query);
+            $todosArray = $stmtSortByDate->fetchAll();
         } catch (Exception $e) {
             array_push($errors, "Cannot display todos");
         }

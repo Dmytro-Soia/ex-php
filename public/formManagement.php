@@ -8,8 +8,9 @@
  * The data submitted should remain displayed in the form after the submission.
  * (Your form should be semantically correct, use a label and name your fields)
  */
-$name = $_POST['name'];
-$age = $_POST['age'];
+// filter_input + filter sanitize ou validate
+$name = filter_input(INPUT_POST, 'name');
+$age = $filter_input(INPUT_POST, 'age', FILTER_VALIDATE_INT);
 
 function cheking($name, $age) {
     if ($name && $age) {

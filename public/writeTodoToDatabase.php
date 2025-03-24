@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $name = filter_input(INPUT_POST, "name");
     $date = filter_input(INPUT_POST, "date");
+    $dateChecking = explode("-", $date);
 
     if ($name === "") {
         array_push($errors, "Missing ToDo Title");
@@ -23,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($date === "") {
         array_push($errors, "Misssing ToDo Date");
     }
-
+    if (checkdate($dateChecking[1], $dateChecking[2], $dateChecking[0]) === false) {
+        array_push($errors, "Date format error");
+    }
     if (count($errors) === 0) {
         $dns = "sqlite:../database.db";
         $user = "root";
