@@ -24,30 +24,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
         try {
-            $pdo = new PDO($dns, $use, $pass, $option);
+            $pdo = new PDO($dns, $user, $pass, $options);
 
             $todos = "";
-
+            $todosArray = [];
             if ($sort === "base" || $sort === NULL) {
 
                 $stmt = $pdo->query("SELECT * FROM todos");
-                $allTodos = $stmt->fetchAll();
-                foreach ($allTodos as $todo) {
-                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input value='Delete ToDo' type='submit'></form></li><br>";
-                }
+                $todosArray = $stmt->fetchAll();
             } elseif ($sort === "name") {
 
                 $stmtSortByName = $pdo->query("SELECT * FROM todos ORDER BY title");
-                $allTodosByName = $stmtSortByName->fetchAll();
-                foreach ($allTodosByName as $todo) {
-                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input value='Delete ToDo' type='submit'></form></li><br>";
-                }
+                $todosArray = $stmtSortByName->fetchAll();
             } elseif ($sort === "date") {
                 $stmtSortByDate = $pdo->query("SELECT * FROM todos ORDER BY due_date");
-                $allTodosByDate = $stmtSortByDate->fetchAll();
-                foreach ($allTodosByDate as $todo) {
-                    $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input value='Delete ToDo' type='submit'></form></li><br>";
-                }
+                $todosArray = $stmtSortByDate->fetchAll();
+            }
+            foreach ($todosArray as $todo) {
+                $todos .= "<li>" . $todo["title"] . " " . $todo["due_date"] . "<form action='deleteTodoFromDatabase.php' method='post'><input type='hidden' name='chosenTodoID' value=" . $todo["id"] . "><input value='Delete ToDo' type='submit'></form></li><br>";
             }
         } catch (Exception $e) {
             array_push($errors, "Cannot display todos");
@@ -87,7 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         <input value='Select sort type' type="submit">
     </form>
     <ul>
-        <?= $todos ?>
+        <?php foreach ($todosArray as $todo): ?>
+            <li>
+                <?= $todo['title'] ?> <time><?= $todo['due_date'] ?></time>
+                <form action='deleteTodoFromDatabase.php' method='post'>
+                    <input type='hidden' name='chosenTodoID' value=<?= $todo['id'] ?>>
+                    <button type='submit'>Delete ToDo</button><br><br>
+                </form>
+            </li>
+        <?php endforeach; ?>
     </ul>
     <a href="writeTodoToDatabase.php">Ajouter une nouvelle todo</a>
 

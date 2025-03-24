@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
         try {
-            $pdo = new PDO($dns, $user, $pass, $option);
+            $pdo = new PDO($dns, $user, $pass, $options);
 
             $stmt = $pdo->prepare("INSERT INTO todos (title, due_date) VALUES (:name, :date)");
             $stmt->execute(["name" => $name, "date" => $date]);
