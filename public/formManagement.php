@@ -10,7 +10,7 @@
  */
 // filter_input + filter sanitize ou validate
 $name = filter_input(INPUT_POST, 'name');
-$age = $filter_input(INPUT_POST, 'age', FILTER_VALIDATE_INT);
+$age = filter_input(INPUT_POST, 'age', FILTER_VALIDATE_INT);
 
 function cheking($name, $age) {
     if ($name && $age) {
